@@ -7,6 +7,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- required to play video in background via notification -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
+    <!-- This app can works on Android TV devices -->
+	<uses-feature android:name="android.software.leanback" android:required="false" />
+	<!-- The touchscreen is not required (though convenient) for Android TV devices -->
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+
     <application
         android:name=".application.AppApplication"
         android:allowBackup="true"
@@ -15,6 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <!-- Activity for classic Android devices -->
         <activity
             android:name=".activity.VideoListActivity"
             android:launchMode="singleTop"
@@ -30,6 +37,24 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable"></meta-data>
         </activity>
+
+        <!-- Activity for Android TV -->
+		<activity
+			android:name=".activity.VideoListTvActivity"
+            android:launchMode="singleTop"
+			android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.SEARCH" />
+
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"></meta-data>
+		</activity>
+
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
